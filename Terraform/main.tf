@@ -62,6 +62,17 @@ resource "aws_security_group" "sg_tic_tac_toe" {
       self              = false
     },
     {
+      description      = "server"
+      from_port        = 3000
+      to_port          = 3000
+      protocol         = "tcp"
+      cidr_blocks      =  ["0.0.0.0/0", aws_vpc.vpc_tic_tac_toe.cidr_block]
+      ipv6_cidr_blocks  = []
+      prefix_list_ids   = []
+      security_groups   = []
+      self              = false
+    },
+    {
       description      = "http traffic"
       from_port        = 80
       to_port          = 80

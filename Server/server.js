@@ -4,7 +4,7 @@ const { Server } = require("socket.io");
 const httpServer = createServer();
 const appIp = process.env.IP;
 const io = new Server(httpServer, {
-  cors: "http://" + appIp + ":3000",
+  cors: "http://" + appIp,
 });
 
 const allUsers = {};
