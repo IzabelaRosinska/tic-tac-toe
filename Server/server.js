@@ -2,8 +2,9 @@ const { createServer } = require("http");
 const { Server } = require("socket.io");
 
 const httpServer = createServer();
+const appIp = process.env.IP;
 const io = new Server(httpServer, {
-  cors: "http://localhost:5173/",
+  cors: "http://" + appIp + ":3000",
 });
 
 const allUsers = {};
@@ -13,6 +14,7 @@ io.on("connection", (socket) => {
   allUsers[socket.id] = {
     socket: socket,
     online: true,
+    playing: false,
   };
 
   socket.on("request_to_play", (data) => {
@@ -23,7 +25,8 @@ io.on("connection", (socket) => {
 
     for (const key in allUsers) {
       const user = allUsers[key];
-      if (user.online && !user.playing && socket.id !== key) {
+
+      if (user.online && !user.playing && user.socket.id !== socket.id) {
         opponentPlayer = user;
         break;
       }
@@ -34,6 +37,9 @@ io.on("connection", (socket) => {
         player1: opponentPlayer,
         player2: currentUser,
       });
+
+      currentUser.playing = true;
+      opponentPlayer.playing = true;
 
       currentUser.socket.emit("OpponentFound", {
         opponentName: opponentPlayer.playerName,
@@ -56,6 +62,7 @@ io.on("connection", (socket) => {
           ...data,
         });
       });
+
     } else {
       currentUser.socket.emit("OpponentNotFound");
     }
@@ -70,11 +77,13 @@ io.on("connection", (socket) => {
       const { player1, player2 } = allRooms[index];
 
       if (player1.socket.id === socket.id) {
+        allRooms.splice(index, 1);
         player2.socket.emit("opponentLeftMatch");
         break;
       }
 
       if (player2.socket.id === socket.id) {
+        allRooms.splice(index, 1);
         player1.socket.emit("opponentLeftMatch");
         break;
       }

@@ -63,7 +63,7 @@ const Square = ({
       return;
     }
 
-    if (finishedState) {
+    if (finishedState || currentElement === "circle" || currentElement === "cross") {
       return;
     }
 

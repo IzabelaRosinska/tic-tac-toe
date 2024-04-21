@@ -128,7 +128,8 @@ const App = () => {
     const username = result.value;
     setPlayerName(username);
 
-    const newSocket = io("http://localhost:3000", {
+    const appIp = import.meta.env.VITE_APP_IP;
+    const newSocket = io("http://" + appIp + ":3000", {
       autoConnect: true,
     });
 
