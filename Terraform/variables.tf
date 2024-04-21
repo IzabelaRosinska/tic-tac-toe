@@ -7,13 +7,19 @@ variable "region" {
 variable "ami" {
   description = "The ID of the Amazon Machine Image (AMI) used to create the EC2 instance."
   type        = string
-  default     = "ami-051f8a213df8bc089"
+  default     = "ami-080e1f13689e07408"
 }
 
 variable "instance_type" {
   description = "The type of EC2 instance used to create the instance."
   type        = string
   default     = "t2.micro"
+}
+
+variable "availability_zone" {
+  description = "The availability zone where the resources will reside."
+  type        = string
+  default     = "us-east-1a"
 }
 
 variable "instance_ip" {

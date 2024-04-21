@@ -16,7 +16,7 @@ resource "aws_internet_gateway" "igw_tic_tac_toe" {
   }
 }
 
-resource "aws_subnet" "subnet_tf" {
+resource "aws_subnet" "subnet_tic_tac_toe" {
   vpc_id     = aws_vpc.vpc_tic_tac_toe.id
   cidr_block = "10.0.1.0/24"
   availability_zone = var.availability_zone
@@ -123,8 +123,7 @@ resource "aws_instance" "ec2_tic_tac_toe" {
   ami                    = var.ami
   instance_type          = var.instance_type
   key_name               = "terraform"
-  associate_public_ip_address = true
-  vpc_security_group_ids = [aws_security_group.main.id]
+  availability_zone      = var.availability_zone
 
   tags = {
     Name = "ec2_ttt"
@@ -132,7 +131,7 @@ resource "aws_instance" "ec2_tic_tac_toe" {
 
   network_interface {
     device_index = 0
-    network_interface_id = aws_network_interface.eni_tf.id
+    network_interface_id = aws_network_interface.ni_tic_tac_toe.id
   }
 
   user_data = "${file("app-installation.sh")}"
