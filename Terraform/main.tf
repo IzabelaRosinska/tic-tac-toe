@@ -84,7 +84,7 @@ resource "aws_security_group" "sg_tic_tac_toe" {
       self              = false
     },
     {
-      escription      = "Backend"
+      description      = "Backend"
       from_port        = 3000
       to_port          = 3000
       protocol         = "tcp"
@@ -95,7 +95,7 @@ resource "aws_security_group" "sg_tic_tac_toe" {
       self              = false
     },
     {
-      escription      = "Frontend"
+      description      = "Frontend"
       from_port        = 5173
       to_port          = 5173
       protocol         = "tcp"
