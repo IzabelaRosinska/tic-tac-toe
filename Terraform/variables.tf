@@ -15,15 +15,3 @@ variable "instance_type" {
   type        = string
   default     = "t2.micro"
 }
-
-variable "availability_zone" {
-  description = "The availability zone where the resources will reside."
-  type        = string
-  default     = "us-east-1a"
-}
-
-variable "instance_ip" {
-    description = "The public IP address of the EC2 instance."
-    type        = string
-    default     = "us-east-1"
-}

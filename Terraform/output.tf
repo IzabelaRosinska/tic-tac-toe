@@ -23,11 +23,6 @@ output "SG_id" {
     value = aws_security_group.sg_tic_tac_toe.id
 }
 
-output "eip" {
-    description = "public Ip of eip"
-    value = aws_eip.eip_tic_tac_toe.public_ip
-}
-
 output "instance_id" {
   description = "ID of the EC2 instance"
   value       = aws_instance.ec2_tic_tac_toe.id
